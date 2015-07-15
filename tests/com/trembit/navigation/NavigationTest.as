@@ -8,7 +8,7 @@ package com.trembit.navigation {
 import com.trembit.as3commands.util.Commands;
 import com.trembit.navigation.commands.CompleteCommand;
 import com.trembit.navigation.commands.FaultCommand;
-import com.trembit.navigation.model.vo.NavigationModel;
+import com.trembit.navigation.model.NavigationModel;
 import com.trembit.navigation.model.vo.StateVO;
 
 import flexunit.framework.Assert;

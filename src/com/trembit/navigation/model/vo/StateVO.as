@@ -7,6 +7,7 @@
 package com.trembit.navigation.model.vo {
 import com.trembit.as3commands.events.CommandEvent;
 import com.trembit.navigation.events.NavigationCommandEvent;
+import com.trembit.navigation.model.NavigationModel;
 import com.trembit.reflections.vo.BaseVO;
 
 public class StateVO extends BaseVO {

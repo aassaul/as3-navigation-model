@@ -4,7 +4,8 @@
  * Date: 15.07.2015
  * Time: 18:37
  */
-package com.trembit.navigation.model.vo {
+package com.trembit.navigation.model {
+import com.trembit.navigation.model.vo.*;
 
 import com.trembit.as3commands.util.Commands;
 import com.trembit.navigation.events.NavigationModelEvent;
