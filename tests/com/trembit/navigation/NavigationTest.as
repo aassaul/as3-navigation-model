@@ -26,6 +26,7 @@ public class NavigationTest {
 			new StateVO("state2", CompleteCommand),
 			new StateVO("state3", FaultCommand),
 			new StateVO("state4")]);
+		model.activate();
 
 		Assert.assertNull(model.getStateByType(""));
 		Assert.assertNotNull(model.getStateByType("state4"));

@@ -13,7 +13,7 @@ import com.trembit.navigation.events.NavigationModelEvent;
 import flash.events.EventDispatcher;
 
 [Event(name="currentStateChange", type="com.trembit.navigation.events.NavigationModelEvent")]
-public class NavigationModel extends EventDispatcher {
+public final class NavigationModel extends EventDispatcher {
 
 	private var _states:Vector.<StateVO>;
 	private var _currentState:StateVO;
@@ -55,7 +55,7 @@ public class NavigationModel extends EventDispatcher {
 		}
 	}
 
-	public function NavigationModel(states:Vector.<StateVO>, startState:StateVO = null) {
+	public function NavigationModel(states:Vector.<StateVO>) {
 		super(this);
 		_states = states;
 		for each (var stateVO:StateVO in states) {
@@ -64,7 +64,10 @@ public class NavigationModel extends EventDispatcher {
 				subState.model = this;
 			}
 		}
-		startState ||= states[0];
+	}
+
+	public function activate(startState:StateVO = null):void {
+		startState ||= _states[0];
 		Commands.run(startState.event);
 	}
 }
