@@ -43,6 +43,18 @@ public class NavigationTest {
 		Assert.assertNull(model.currentState.previousState);
 		Assert.assertEquals(model.currentState, model.getStateByType("state1"));
 
+		Assert.assertEquals(model.getStateByType("state1").subStates.length, 2);
+		Assert.assertEquals(model.getStateByType("state1").subStates.indexOf(model.getStateByType("state1")), -1);
+		Assert.assertFalse(model.getStateByType("state1").subStates[0] == model.getStateByType("state1").subStates[1]);
+
+		Assert.assertEquals(model.getStateByType("state1").subStates[0].subStates.length, model.getStateByType("state1").subStates.length);
+		Assert.assertEquals(model.getStateByType("state1").subStates[0].subStates.indexOf(model.getStateByType("state1").subStates[0]), -1);
+		Assert.assertFalse(model.getStateByType("state1").subStates[0].subStates[0] == model.getStateByType("state1").subStates[0].subStates[1]);
+
+		Assert.assertEquals(model.getStateByType("state1").subStates[1].subStates.length, model.getStateByType("state1").subStates.length);
+		Assert.assertEquals(model.getStateByType("state1").subStates[1].subStates.indexOf(model.getStateByType("state1").subStates[1]), -1);
+		Assert.assertFalse(model.getStateByType("state1").subStates[1].subStates[0] == model.getStateByType("state1").subStates[1].subStates[1]);
+
 		Commands.run(model.currentState.event);
 		Assert.assertNull(model.currentState.previousState);
 		Assert.assertEquals(model.currentState, model.getStateByType("state1"));
