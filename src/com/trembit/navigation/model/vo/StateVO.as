@@ -14,15 +14,24 @@ public class StateVO extends BaseVO {
 	[Transient]
 	public var stateType:String;
 	[Transient]
+	[RemoteProperty(initializer="getPreviousStateFromSource")]
 	public var previousState:StateVO;
+	[Transient]
+	[RemoteProperty(initializer="getSubStatesFromSource")]
+	public var subStates:Vector.<StateVO>;
 	[Ignored]
 	public var event:CommandEvent;
 	[Ignored]
 	public var model:NavigationModel;
 
-	public function StateVO(stateType:String = null, prepareCommand:Class = null, previousState:StateVO = null, completeEvent:CommandEvent = null, faultEvent:CommandEvent = null) {
+	public function StateVO(stateType:String = null, prepareCommand:Class = null, subStates:Vector.<StateVO> = null,
+							previousState:StateVO = null, completeEvent:CommandEvent = null, faultEvent:CommandEvent = null) {
 		this.stateType = stateType;
 		this.previousState = previousState;
+		this.subStates = subStates;
+		for each (var stateVO:StateVO in subStates) {
+			stateVO.subStates = stateVO.getSubStatesFromSource(this);
+		}
 		if(stateType){
 			event = new NavigationCommandEvent(this, prepareCommand, completeEvent, faultEvent);
 		}
@@ -36,6 +45,28 @@ public class StateVO extends BaseVO {
 			state = state.previousState;
 		}
 		return false;
+	}
+
+	public final function getPreviousStateFromSource(source:*):StateVO{
+		if(source == this){
+			return this.previousState;
+		}
+		var state:StateVO = source as StateVO;
+		return state?state.previousState:null;
+	}
+
+	public final function getSubStatesFromSource(source:*):Vector.<StateVO>{
+		var state:StateVO = source as StateVO;
+		if(!state){
+			return null;
+		}
+		var res:Vector.<StateVO> = new <StateVO>[state];
+		for each (var stateVO:StateVO in state.subStates) {
+			if(stateVO != this){
+				res.push(stateVO);
+			}
+		}
+		return res;
 	}
 
 	override public function equals(value:*):Boolean {

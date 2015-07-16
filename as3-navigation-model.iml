@@ -8,7 +8,7 @@
             <entry library-name="flexunit-4.2.0-20140410-flex_4.12.0" library-level="application">
               <dependency linkage="Test" />
             </entry>
-            <entry library-id="301d5088-73af-4564-b65d-7dbf6374cabb">
+            <entry library-id="ec16dffa-b95f-4c0a-820d-684a6f9de5a3">
               <dependency linkage="Merged" />
             </entry>
           </entries>
@@ -34,7 +34,7 @@
     <orderEntry type="library" exported="" name="flexunit-4.2.0-20140410-flex_4.12.0" level="application" />
     <orderEntry type="module-library" exported="">
       <library type="flex">
-        <properties id="301d5088-73af-4564-b65d-7dbf6374cabb" />
+        <properties id="ec16dffa-b95f-4c0a-820d-684a6f9de5a3" />
         <CLASSES>
           <root url="file://$MODULE_DIR$/libs" />
         </CLASSES>

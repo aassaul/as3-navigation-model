@@ -26,9 +26,6 @@ public class NavigationModel extends EventDispatcher {
 	public function set currentState(value:StateVO):void{
 		var oldValue:StateVO = currentState;
 		_currentState = value;
-		if(oldValue && !_currentState.equals(oldValue) && !_currentState.previousState && !_currentState.isPreviousForState(oldValue)){
-			_currentState.previousState = oldValue;
-		}
 		dispatchEvent(new NavigationModelEvent(NavigationModelEvent.CURRENT_STATE_CHANGE, oldValue, currentState));
 	}
 
@@ -41,11 +38,31 @@ public class NavigationModel extends EventDispatcher {
 		return null;
 	}
 
+	public function changeState(state:StateVO):void{
+		for (var i:int = 0; i < _states.length; i++) {
+			var stateVO:StateVO = _states[i];
+			if(stateVO.equals(state)){
+				if(!stateVO.subStates){
+					stateVO.subStates = new <StateVO>[state];
+					state.subStates = state.getSubStatesFromSource(stateVO);
+				} else if(stateVO.subStates.indexOf(state) == -1){
+					stateVO.subStates.push(state);
+					state.subStates = state.getSubStatesFromSource(stateVO);
+				}
+				_states[i] = state;
+				break;
+			}
+		}
+	}
+
 	public function NavigationModel(states:Vector.<StateVO>, startState:StateVO = null) {
 		super(this);
 		_states = states;
 		for each (var stateVO:StateVO in states) {
 			stateVO.model = this;
+			for each (var subState:StateVO in stateVO.subStates) {
+				subState.model = this;
+			}
 		}
 		startState ||= states[0];
 		Commands.run(startState.event);

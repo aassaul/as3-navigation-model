@@ -19,6 +19,13 @@ public class NavigationCommand extends Command {
 	}
 
 	override protected function execute():void {
+		if(state.equals(state.model.currentState) && state != state.model.currentState){
+			state.synchronizeWith(state.model.currentState);
+			state.model.changeState(state);
+		}
+		if(state.model.currentState && !state.equals(state.model.currentState) && !state.previousState && !state.isPreviousForState(state.model.currentState)){
+			state.previousState = state.model.currentState;
+		}
 		state.model.currentState = state;
 		onComplete(event.data);
 	}
