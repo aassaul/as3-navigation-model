@@ -30,11 +30,9 @@ public class StateVO extends BaseVO {
 		this.previousState = previousState;
 		this.subStates = subStates;
 		for each (var stateVO:StateVO in subStates) {
-			stateVO.subStates = stateVO.getSubStatesFromSource(this);
+			stateVO.synchronizeWith(this);
 		}
-		if(stateType){
-			event = new NavigationCommandEvent(this, prepareCommand, completeEvent, faultEvent);
-		}
+		event = new NavigationCommandEvent(this, prepareCommand, completeEvent, faultEvent);
 	}
 
 	public final function isPreviousForState(state:StateVO):Boolean{

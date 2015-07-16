@@ -20,8 +20,8 @@ public class NavigationTest {
 	public function testNavigation():void{
 		var model:NavigationModel = new NavigationModel(new <StateVO>[
 			new TestVO("state1", CompleteCommand, new <StateVO>[
-				new TestVO("state1", CompleteCommand),
-				new TestVO("state1", CompleteCommand)
+				new TestVO(null, CompleteCommand),
+				new TestVO(null, CompleteCommand)
 			]),
 			new StateVO("state2", CompleteCommand),
 			new StateVO("state3", FaultCommand),
@@ -68,7 +68,6 @@ public class NavigationTest {
 		Assert.assertEquals(state.previousState, model.getStateByType("state2").previousState);
 		Assert.assertTrue(state.equals(model.getStateByType("state2")));
 		Assert.assertNull(state.model);
-		Assert.assertNull(state.event);
 
 		state = model.getStateByType("state1");
 		Commands.run(model.getStateByType("state1").subStates[0].event);
