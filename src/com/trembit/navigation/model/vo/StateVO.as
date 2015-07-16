@@ -81,7 +81,7 @@ public class StateVO extends BaseVO {
 	}
 
 	override public function synchronizeWith(source:*):void {
-		var subStates:Vector.<StateVO> = this.subStates?this.subStates:getSubStatesFromSource(source);
+		var subStates:Vector.<StateVO> = this.subStates||getSubStatesFromSource(source);
 		super.synchronizeWith(source);
 		this.subStates = subStates;
 	}
